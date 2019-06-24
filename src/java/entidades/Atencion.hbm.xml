@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 24/06/2019 11:12:27 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entidades.Atencion" table="atencion" catalog="mascota" optimistic-lock="version">
+        <id name="idAtencion" type="java.lang.Integer">
+            <column name="idAtencion" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="clienteHasMascota" class="entidades.ClienteHasMascota" fetch="select">
+            <column name="id_cliente" not-null="true" />
+            <column name="id_mascota" not-null="true" />
+        </many-to-one>
+        <many-to-one name="personal" class="entidades.Personal" fetch="select">
+            <column name="idpersonal" not-null="true" />
+        </many-to-one>
+        <property name="fechaAtencion" type="date">
+            <column name="fechaAtencion" length="10" not-null="true" />
+        </property>
+        <property name="diagnostico" type="string">
+            <column name="diagnostico" length="65535" not-null="true" />
+        </property>
+        <property name="horaAtencion" type="time">
+            <column name="horaAtencion" length="8" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./TemplateVeterinaria.xhtml">
+
+            <ui:define name="content">
+                <p:growl id="msj" autoUpdate="true"/>
+                <h:form id="from">
+                    <p:panel>
+                        <f:facet name="header">
+                            <column>
+                                <p:outputLabel value="MANTENIMIENTO MASCOTA"/>  
+                            </column>
+                        </f:facet>
+                        <h:panelGrid columns="2">
+
+                            <p:outputLabel value="Id"/>
+                            <p:inputText value="#{mascotaBean.mascota.idMascota}" required="true"/>
+                            <p:outputLabel value="Nombre Mascota"/>
+                            <p:inputText value="#{mascotaBean.mascota.nameMascota}"/>
+                            <p:outputLabel value="Nombre Dueño"/>
+                            <p:inputText value="#{mascotaBean.mascota.nameCliente}"/>
+                            <p:outputLabel value="Raza"/>
+                            <p:inputText value="#{mascotaBean.mascota.raza}"/>
+                        </h:panelGrid>
+                        <p:commandButton value="Guardar" action="#{mascotaBean.guardarMascota()}" update=":data:datatable,:from"/>
+                        <p:commandButton value="Actualizar" action="#{mascotaBean.actualizarMascota()}" update=":data:datatable,:from"/>
+                    </p:panel>
+                </h:form>
+                <p:panel>
+                    <h:form id="data">
+                        <p:dataTable rowKey="#{mascota.idMascota}" selection="#{mascotaBean.mascota}" selectionMode="single" 
+                                     id="datatable" var="mascota" value="#{mascotaBean.listarMascotas()}">
+                            <p:ajax update=":from" event="rowSelect" />
+                            <p:column headerText="Codigo">
+                                <h:outputText value="#{mascota.idMascota}"/>
+                            </p:column>
+                            <p:column headerText="Nombre de Mascota">
+                                <h:outputText value="#{mascota.nameMascota}"/>
+                            </p:column>
+                            <p:column headerText="Raza">
+                                <h:outputText value="#{mascota.raza}"/>
+                            </p:column>
+                            <p:column headerText="Nombre de Cliente">
+                                <h:outputText value="#{mascota.nameCliente}"/>
+                            </p:column>
+                            <p:column headerText="Accion">
+                                <p:commandButton value="Eliminar" onclick="PF('dgEliminar').show();">
+                                    <f:setPropertyActionListener target="#{mascotaBean.mascota}" value="#{mascota}" />
+                                </p:commandButton>
+                            </p:column>
+
+                        </p:dataTable>
+                    </h:form>
+                </p:panel>
+                <p:dialog id="dig" header="Eliminar registro" widgetVar="dgEliminar" showEffect="explode" hideEffect="explode" modal="true">
+                    <h:form id="fromEliminar" style="text-align:center;">
+                        <p:commandButton value="Si" action="#{mascotaBean.eliminar()}" update=":data:datatable" oncomplete="PF('dgEliminar').hide();"/>
+                        <p:commandButton value="No" onclick="PF('dgEliminar').hide();" />
+                    </h:form>
+                </p:dialog>
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>
+

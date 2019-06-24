@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 24/06/2019 11:12:27 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entidades.ClienteHasMascota" table="cliente_has_mascota" catalog="mascota" optimistic-lock="version">
+        <composite-id name="id" class="entidades.ClienteHasMascotaId">
+            <key-property name="clienteIdCliente" type="int">
+                <column name="cliente_id_cliente" />
+            </key-property>
+            <key-property name="mascotaIdMascota" type="int">
+                <column name="mascota_id_mascota" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="cliente" class="entidades.Cliente" update="false" insert="false" fetch="select">
+            <column name="cliente_id_cliente" not-null="true" />
+        </many-to-one>
+        <many-to-one name="mascota" class="entidades.Mascota" update="false" insert="false" fetch="select">
+            <column name="mascota_id_mascota" not-null="true" />
+        </many-to-one>
+        <property name="estado" type="java.lang.Character">
+            <column name="estado" length="1" />
+        </property>
+        <set name="atencions" table="atencion" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_cliente" not-null="true" />
+                <column name="id_mascota" not-null="true" />
+            </key>
+            <one-to-many class="entidades.Atencion" />
+        </set>
+    </class>
+</hibernate-mapping>

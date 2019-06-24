@@ -1,13 +1,12 @@
 
 package managedBean;
 
-import dao.MascotaDao;
-import entidades.Mascota;
+import dao.PersonalDao;
+import entidades.Personal;
 import java.io.Serializable;
 import java.util.ArrayList;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.hibernate.HibernateException;
@@ -18,31 +17,27 @@ import org.hibernate.HibernateException;
  */
 @ManagedBean
 @ViewScoped
-public class MascotaBean implements Serializable {
+public class PersonalBean implements Serializable{
+    
+    private Personal personal;
 
-    /**
-     * SE COMUNICA CON EL DAO
-     */
-    private Mascota mascota;
-
-    public MascotaBean() {
-        this.mascota = new Mascota();
-
+    public PersonalBean() {
+        this.personal = new Personal();
     }
 
-    public Mascota getMascota() {
-        return mascota;
+    public Personal getPersonal() {
+        return personal;
     }
 
-    public void setMascota(Mascota mascota) {
-        this.mascota = mascota;
+    public void setPersonal(Personal personal) {
+        this.personal = personal;
     }
 
-    public String guardarMascota() {
+    public String guardarPersonal() {
         try {
 
-            MascotaDao mascotaDao = new MascotaDao();
-            boolean respuesta = mascotaDao.guardarMascota(mascota);
+            PersonalDao personalDao = new PersonalDao();
+            boolean respuesta = personalDao.guardarPersonal(personal);
             if (respuesta) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Se registro correctamente"));
             } else {
@@ -52,14 +47,14 @@ public class MascotaBean implements Serializable {
             ///transation.rollback();  -- regresa a la anterior
             System.out.println("Error::: " + e);
         }
-        return "/IMascota";
+        return "/IPersonal";
     }
 
-    public String actualizarMascota() {
+    public String actualizarPersonal() {
         try {
-            MascotaDao mascotaDao = new MascotaDao();
-            boolean respuesta = mascotaDao.actualizarMascota(mascota);
-            if (respuesta){
+            PersonalDao personalDao = new PersonalDao();
+            boolean respuesta = personalDao.actualizarPersonal(personal);
+            if (respuesta) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Se actualizo correctamente"));
             } else {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("No se puedo actualizar"));
@@ -68,30 +63,25 @@ public class MascotaBean implements Serializable {
             ///transation.rollback();  -- regresa a la anterior
             System.out.println("Error::: " + e);
         }
-        return "/IMascota";
+        return "/IPersonal";
 
     }
 
-    public ArrayList<Mascota> listarMascotas() {
-        ArrayList<Mascota> lista = new ArrayList<>();
-        MascotaDao mascotaDao = new MascotaDao();
-        lista = mascotaDao.listarMascotas();
+    public ArrayList<Personal> listarPersonals() {
+        ArrayList<Personal> lista = new ArrayList<>();
+        PersonalDao personalDao = new PersonalDao();
+        lista = personalDao.listarPersonal();
         return lista;
     }
 
     public String eliminar() {
-        MascotaDao mascotaDao = new MascotaDao();
-        boolean respuesta = mascotaDao.eliminarMascota(mascota);
+        PersonalDao personalDao = new PersonalDao();
+        boolean respuesta = personalDao.eliminarPersonal(personal);
         if (respuesta) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Se elimino correctamente"));
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("No se puedo eliminar"));
         }
-        return "/IMascota";
+        return "/IPersonal";
     }
-
-    public String limpiar() {
-        return "/IMascota";
-    }
-
 }

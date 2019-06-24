@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 24/06/2019 11:12:27 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entidades.Personal" table="personal" catalog="mascota" optimistic-lock="version">
+        <id name="idpersonal" type="java.lang.Integer">
+            <column name="idpersonal" />
+            <generator class="identity" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="nombre" length="65535" not-null="true" />
+        </property>
+        <property name="dni" type="string">
+            <column name="dni" length="9" not-null="true" />
+        </property>
+        <property name="telefono" type="string">
+            <column name="telefono" length="9" not-null="true" />
+        </property>
+        <property name="cargo" type="string">
+            <column name="cargo" length="45" not-null="true" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" length="65535" not-null="true" />
+        </property>
+        <property name="apellidos" type="string">
+            <column name="apellidos" length="65535" not-null="true" />
+        </property>
+        <set name="atencions" table="atencion" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idpersonal" not-null="true" />
+            </key>
+            <one-to-many class="entidades.Atencion" />
+        </set>
+    </class>
+</hibernate-mapping>
