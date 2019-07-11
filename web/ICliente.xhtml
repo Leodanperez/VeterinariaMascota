@@ -38,15 +38,16 @@
                             <p:outputLabel value="Telefono"/>
                             <p:inputText value="#{clienteBean.cliente.telefono}"/>
                         </h:panelGrid>
-                        <p:commandButton value="Guardar" action="#{clienteBean.guardarCleinte()}" update=":data:datatable,:from"/>
-                        <p:commandButton value="Actualizar" action="#{clienteBean.actualizarCliente()}" update=":data:datatable,:from"/>
+                        <p:commandButton value="Nuevo" action="#{clienteBean.limpiar()}" update=":data:datatable,:from"/>
+                        <p:commandButton rendered="#{!clienteBean.banderaSelect}" value="Guardar" action="#{clienteBean.guardarCleinte()}" update=":data:datatable,:from"/>
+                        <p:commandButton rendered="#{clienteBean.banderaSelect}" value="Actualizar" action="#{clienteBean.actualizarCliente()}" update=":data:datatable,:from"/>
                     </p:panel>
                 </h:form>
                 <p:panel>
                     <h:form id="data">
                         <p:dataTable rowKey="#{cliente.idCliente}" selection="#{clienteBean.cliente}" selectionMode="single" 
                                      id="datatable" var="cliente" value="#{clienteBean.listarClientes()}">
-                            <p:ajax update=":from" event="rowSelect" />
+                            <p:ajax update=":from" event="rowSelect" listener="#{clienteBean.selectBandera()}"/>
                             <p:column headerText="Codigo">
                                 <h:outputText value="#{cliente.idCliente}"/>
                             </p:column>

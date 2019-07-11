@@ -21,15 +21,18 @@
                             </column>
                         </f:facet>
                         <h:panelGrid columns="2">
-
-                            <p:outputLabel value="Id"/>
-                            <p:inputText value="#{mascotaBean.mascota.idMascota}" required="true"/>
-                            <p:outputLabel value="Nombre Mascota"/>
-                            <p:inputText value="#{mascotaBean.mascota.nameMascota}"/>
-                            <p:outputLabel value="Nombre Dueño"/>
-                            <p:inputText value="#{mascotaBean.mascota.nameCliente}"/>
-                            <p:outputLabel value="Raza"/>
-                            <p:inputText value="#{mascotaBean.mascota.raza}"/>
+                            <p:outputLabel value="Clientes"/>
+                            <p:selectOneMenu value="#{mascotaPorClienteBean.idCliente}">
+                                <f:selectItem itemLabel="-- Seleccione Cliente --"/>
+                                <f:selectItems value="#{mascotaPorClienteBean.listaclientes}" var="cliente" itemLabel="#{cliente.nombre}" itemValue="#{cliente.idCliente}"/>
+                            </p:selectOneMenu>
+                        </h:panelGrid>
+                        <h:panelGrid columns="2">
+                            <p:outputLabel value="Mascota"/>
+                            <p:selectOneMenu value="#{mascotaPorClienteBean.idMascota}">
+                                <f:selectItem itemLabel="-- Seleccione Mascota --"/>
+                                <f:selectItems value="#{mascotaPorClienteBean.listamascotas}" var="mascota" itemLabel="#{mascota.nameMascota}" itemValue="#{mascota.idMascota}"/>
+                            </p:selectOneMenu>
                         </h:panelGrid>
                         <p:commandButton value="Nuevo" action="#{mascotaBean.limpiar()}" update=":data:datatable,:from"/>
                         <p:commandButton rendered="#{!mascotaBean.banderaSelect}" value="Guardar" action="#{mascotaBean.guardarMascota()}" update=":data:datatable,:from"/>                        

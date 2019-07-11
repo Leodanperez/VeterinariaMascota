@@ -20,6 +20,7 @@ import org.hibernate.HibernateException;
 public class PersonalBean implements Serializable{
     
     private Personal personal;
+    private boolean banderaSelect = false;
 
     public PersonalBean() {
         this.personal = new Personal();
@@ -84,4 +85,21 @@ public class PersonalBean implements Serializable{
         }
         return "/IPersonal";
     }
+    
+    public String limpiar() {
+        return "/IPersonal";
+    }
+    
+    public void selectBandera(){
+        banderaSelect = true;
+    }
+
+    public boolean isBanderaSelect() {
+        return banderaSelect;
+    }
+
+    public void setBanderaSelect(boolean banderaSelect) {
+        this.banderaSelect = banderaSelect;
+    }
+    
 }

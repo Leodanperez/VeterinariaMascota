@@ -20,6 +20,7 @@ import org.hibernate.HibernateException;
 public class ClienteBean implements Serializable {
 
     private Cliente cliente;
+    private boolean banderaSelect = false;
 
     public ClienteBean() {
         this.cliente = new Cliente();
@@ -84,5 +85,22 @@ public class ClienteBean implements Serializable {
         }
         return "/ICliente";
     }
+    
+    public String limpiar() {
+        return "/ICliente";
+    }
+    
+    public void selectBandera(){
+        banderaSelect = true;
+    }
 
+    public boolean isBanderaSelect() {
+        return banderaSelect;
+    }
+
+    public void setBanderaSelect(boolean banderaSelect) {
+        this.banderaSelect = banderaSelect;
+    }
+
+    
 }
