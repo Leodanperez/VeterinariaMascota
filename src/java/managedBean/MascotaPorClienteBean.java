@@ -1,11 +1,17 @@
-
 package managedBean;
 
 import dao.ClienteDao;
 import dao.MascotaDao;
+import dao.MascotaPorClienteDao;
+import entidades.ClienteHasMascota;
+import entidades.ClienteHasMascotaId;
+import java.io.Serializable;
 import java.util.ArrayList;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import org.hibernate.HibernateException;
 
 /**
  *
@@ -13,27 +19,42 @@ import javax.faces.bean.ViewScoped;
  */
 @ManagedBean
 @ViewScoped
-public class MascotaPorClienteBean {
+public class MascotaPorClienteBean implements Serializable {
 
     private ArrayList listaclientes;
     private ArrayList listamascotas;
-    
+    private ClienteHasMascota mascotaPorCliente;
+
     private int idCliente;
     private int idMascota;
 
+    final private ClienteHasMascotaId mascotaporClienteId;
+
     public MascotaPorClienteBean() {
         listaclientes = new ArrayList();
+        mascotaPorCliente = new ClienteHasMascota();
+        mascotaporClienteId = new ClienteHasMascotaId();
         listarCombos();
     }
-    
+
     public void listarCombos() {
         ClienteDao clientedao = new ClienteDao();
         MascotaDao mascotadao = new MascotaDao();
-        
-        listaclientes = clientedao.listarCliente();     
+
+        listaclientes = clientedao.listarCliente();
         listamascotas = mascotadao.listarMascotas();
     }
-    
+
+    public String guardarMascotaxCliente() {
+        MascotaPorClienteDao mascotaDao = new MascotaPorClienteDao();
+        mascotaporClienteId.setClienteIdCliente(idCliente);
+        mascotaporClienteId.setMascotaIdMascota(idMascota);
+        
+        mascotaPorCliente.setId(mascotaporClienteId);
+        mascotaDao.guardarMascotaPorCliente(mascotaPorCliente);
+
+        return "/RegistrarMascotaPorCliente";
+    }
 
     public ArrayList getListaclientes() {
         return listaclientes;
@@ -66,5 +87,12 @@ public class MascotaPorClienteBean {
     public void setIdMascota(int idMascota) {
         this.idMascota = idMascota;
     }
-    
+
+    public ClienteHasMascota getMascotaPorCliente() {
+        return mascotaPorCliente;
+    }
+
+    public void setMascotaPorCliente(ClienteHasMascota mascotaPorCliente) {
+        this.mascotaPorCliente = mascotaPorCliente;
+    }
 }

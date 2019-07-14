@@ -34,8 +34,16 @@
                                 <f:selectItems value="#{mascotaPorClienteBean.listamascotas}" var="mascota" itemLabel="#{mascota.nameMascota}" itemValue="#{mascota.idMascota}"/>
                             </p:selectOneMenu>
                         </h:panelGrid>
+                        <h:panelGrid columns="2">
+                            <p:outputLabel value="Estado"/>
+                            <p:selectOneMenu value="#{mascotaPorClienteBean.mascotaPorCliente.estado}">
+                                <f:selectItem itemLabel="-- Seleccione Estado --"/>
+                                <f:selectItem itemLabel="Activo" itemValue="A"/>
+                                <f:selectItem itemLabel="Inactivo" itemValue="I"/>
+                            </p:selectOneMenu>
+                        </h:panelGrid>
                         <p:commandButton value="Nuevo" action="#{mascotaBean.limpiar()}" update=":data:datatable,:from"/>
-                        <p:commandButton rendered="#{!mascotaBean.banderaSelect}" value="Guardar" action="#{mascotaBean.guardarMascota()}" update=":data:datatable,:from"/>                        
+                        <p:commandButton value="Guardar" action="#{mascotaPorClienteBean.guardarMascotaxCliente()}" update=":data:datatable,:from"/>                        
                         <p:commandButton rendered="#{mascotaBean.banderaSelect}" value="Actualizar" action="#{mascotaBean.actualizarMascota()}" update=":data:datatable,:from"/>
                     </p:panel>
                 </h:form>

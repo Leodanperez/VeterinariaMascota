@@ -41,9 +41,10 @@ Contributor(s):
 -->
 <hibernate-reverse-engineering>
   <schema-selection match-catalog="mascota"/>
-  <table-filter match-name="personal"/>
-  <table-filter match-name="cliente_has_mascota"/>
+  <table-filter match-name="sexo"/>
   <table-filter match-name="cliente"/>
-  <table-filter match-name="atencion"/>
   <table-filter match-name="mascota"/>
+  <table-filter match-name="cliente_has_mascota"/>
+  <table-filter match-name="personal"/>
+  <table-filter match-name="atencion"/>
 </hibernate-reverse-engineering>

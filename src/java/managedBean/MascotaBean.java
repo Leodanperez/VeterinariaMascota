@@ -28,7 +28,6 @@ public class MascotaBean implements Serializable {
 
     public MascotaBean() {
         this.mascota = new Mascota();
-
     }
 
     public Mascota getMascota() {

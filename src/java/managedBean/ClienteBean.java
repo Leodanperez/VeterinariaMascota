@@ -1,4 +1,3 @@
-
 package managedBean;
 
 import dao.ClienteDao;
@@ -24,14 +23,6 @@ public class ClienteBean implements Serializable {
 
     public ClienteBean() {
         this.cliente = new Cliente();
-    }
-
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
     }
 
     public String guardarCleinte() {
@@ -85,12 +76,12 @@ public class ClienteBean implements Serializable {
         }
         return "/ICliente";
     }
-    
+
     public String limpiar() {
         return "/ICliente";
     }
-    
-    public void selectBandera(){
+
+    public void selectBandera() {
         banderaSelect = true;
     }
 
@@ -102,5 +93,11 @@ public class ClienteBean implements Serializable {
         this.banderaSelect = banderaSelect;
     }
 
-    
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
 }

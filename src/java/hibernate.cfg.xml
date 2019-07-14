@@ -8,6 +8,7 @@
     <property name="hibernate.connection.username">root</property>
     <mapping resource="entidades/Cliente.hbm.xml"/>
     <mapping resource="entidades/Mascota.hbm.xml"/>
+    <mapping resource="entidades/Sexo.hbm.xml"/>
     <mapping resource="entidades/Atencion.hbm.xml"/>
     <mapping resource="entidades/ClienteHasMascota.hbm.xml"/>
     <mapping resource="entidades/Personal.hbm.xml"/>
