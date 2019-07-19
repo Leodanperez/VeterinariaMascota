@@ -13,39 +13,62 @@
 
             <ui:define name="content">
                 <p:growl id="msj" autoUpdate="true"/>
-                <h:form id="from">
-                    <p:panel>
+                <h:form id="from" style="padding-top: 20px; padding-bottom: 20px;">
+                    <p:panel style="width: 95%">
                         <f:facet name="header">
                             <column>
                                 <p:outputLabel value="MANTENIMIENTO USUARIO"/>  
                             </column>
                         </f:facet>
-                        <h:panelGrid columns="2">
-                            <p:outputLabel value="Nombre Usuario"/>
-                            <p:inputText value="#{usuarioBean.usuario.nombreUsuario}" required="true"/>
-                            <p:outputLabel value="Password"/>
-                            <p:password value="#{usuarioBean.usuario.password}"/>
-                            <p:outputLabel value="Clientes"/>
-                            <p:selectOneMenu value="#{usuarioBean.idCliente}">
-                                <f:selectItem itemLabel="-- Seleccione Cliente --"/>
-                                <f:selectItems value="#{usuarioBean.listaclientes}" var="usuario" itemLabel="#{usuario.nombre}" itemValue="#{usuario.idCliente}"/>
-                            </p:selectOneMenu>
-                            <p:outputLabel value="Personal"/>
-                            <p:selectOneMenu value="#{usuarioBean.idPersonal}">
-                                <f:selectItem itemLabel="-- Seleccione Personal --"/>
-                                <f:selectItems value="#{usuarioBean.listpersonal}" var="personal" itemLabel="#{personal.nombre}" itemValue="#{personal.idpersonal}"/>
-                            </p:selectOneMenu>
+                        <h:panelGrid style="width: 50%; padding-top: 30px;">
+                            <p:row>
+                                <p:column >
+                                    <p:outputLabel value="Nombre Usuario"/>
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{usuarioBean.usuario.nombreUsuario}" required="true" style="width: 95%"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column >
+                                    <p:outputLabel value="Password"/>
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{usuarioBean.usuario.password}" style="width: 95%"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="Seleccione tipo de usuario"/>
+                                    <p:commandButton value="Personal" action="#{usuarioBean.show()}" style="margin-left: 100px;">
+                                        <f:ajax execute="@form" render="@form"></f:ajax>
+                                    </p:commandButton>
+                                    <p:commandButton value="Cliente" action="#{usuarioBean.hide()}" style="margin-left: 50px;">
+                                        <f:ajax execute="@form" render="@form"></f:ajax>
+                                    </p:commandButton>
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneMenu value="#{usuarioBean.idPersonal}" rendered="#{!usuarioBean.visible}">
+                                        <f:selectItem itemLabel="-- Seleccione Personal --"/>
+                                        <f:selectItems value="#{usuarioBean.listpersonal}" var="personal" itemValue="#{personal.idpersonal}" itemLabel="#{personal.nombre} #{personal.apellidos}"/>
+                                    </p:selectOneMenu>
+                                    <p:selectOneMenu value="#{usuarioBean.idCliente}" rendered="#{usuarioBean.visible}">
+                                        <f:selectItem itemLabel="-- Seleccione Cliente --"/>
+                                        <f:selectItems value="#{usuarioBean.listaclientes}" var="usuario" itemValue="#{usuario.idCliente}" itemLabel="#{usuario.nombre} #{usuario.apellido}"/>
+                                    </p:selectOneMenu>
+                                </p:column>
+                            </p:row>
                         </h:panelGrid>
                         <p:commandButton value="Nuevo" action="#{usuarioBean.limpiar()}" update=":data:datatable,:from"/>
                         <p:commandButton rendered="#{!usuarioBean.banderaSelected}" value="Guardar" action="#{usuarioBean.guardarUsuario()}" update=":data:datatable,:from"/>                        
-                        <p:commandButton rendered="#{usuarioBean.banderaSelected}" value="Actualizar" action="#{usuarioBean.actualizarUsuario()}" update=":data:datatable,:from"/>
+                        <p:commandButton rendered="#{usuarioBean.banderaSelected}" value="Actualizar" action="#{usuarioBean.updateUsuario()}" update=":data:datatable,:from"/>
                     </p:panel>
                 </h:form>
                 <p:panel>
                     <h:form id="data">
                         <p:dataTable rowKey="#{usuario.idUsuario}" selection="#{usuarioBean.usuario}" selectionMode="single" 
                                      id="datatable" var="usuario" value="#{usuarioBean.listarUsuario()}">
-                            <p:ajax update=":from" event="rowSelect"/>
+                            <p:ajax update=":from" event="rowSelect" listener="#{usuarioBean.selectBandera()}"/>
                             <p:column headerText="Codigo">
                                 <h:outputText value="#{usuario.idUsuario}"/>
                             </p:column>

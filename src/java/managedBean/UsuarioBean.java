@@ -23,6 +23,7 @@ public class UsuarioBean implements Serializable {
 
     private ArrayList listaclientes;
     private ArrayList listpersonal;
+
     private Usuario usuario;
 
     private int idCliente;
@@ -30,11 +31,20 @@ public class UsuarioBean implements Serializable {
 
     final private Cliente clienteId;
     final private Personal personalId;
-    
+
     private boolean banderaSelected = false;
+    private boolean visible;
+
+    public void show() {
+        visible = true;
+    }
+
+    public void hide() {
+        visible = false;
+    }
 
     public UsuarioBean() {
-        this.usuario = new Usuario();
+        usuario = new Usuario();
         listaclientes = new ArrayList();
         listpersonal = new ArrayList();
 
@@ -56,10 +66,14 @@ public class UsuarioBean implements Serializable {
     public String guardarUsuario() {
         try {
             UsuarioDao usuariodao = new UsuarioDao();
-            clienteId.setIdCliente(idCliente);
-            personalId.setIdpersonal(idPersonal);
-            usuario.setPersonal(personalId);
-            usuario.setCliente(clienteId);
+            if (idCliente != 0) {
+                clienteId.setIdCliente(idCliente);
+                usuario.setCliente(clienteId);
+
+            } else if (idPersonal != 0) {
+                personalId.setIdpersonal(idPersonal);
+                usuario.setPersonal(personalId);
+            }
             boolean respuest = usuariodao.guardarUsuario(usuario);
             if (respuest) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Se registro correctamente"));
@@ -67,25 +81,23 @@ public class UsuarioBean implements Serializable {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("No se puedo registrar"));
             }
         } catch (Exception e) {
-            System.out.println("Error:: "+e.getMessage());
+            System.out.println("Error:: " + e.getMessage());
         }
 
         return "/RegistroUsuario";
     }
-    
-    public String actualizarUsuario(){
-        try {
-            UsuarioDao usuariodao = new UsuarioDao();
-            boolean respuesta = usuariodao.actualizarUsuario(usuario);
-            if (respuesta) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Se actualizo correctamente"));
-            } else {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("No se puedo actualizar"));
-            }
-        } catch (Exception e) {
-            System.out.println("Error:: actualizar "+e.getMessage());
+
+    public String updateUsuario() {
+
+        UsuarioDao usuariodao = new UsuarioDao();
+        boolean respuesta = usuariodao.actualizarUsuario(usuario);
+        if (respuesta) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro actualizado con exito", "exito"));
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Error", "No se pudo registrar"));
         }
         return "/RegistroUsuario";
+
     }
 
     public ArrayList<Usuario> listarUsuario() {
@@ -94,7 +106,7 @@ public class UsuarioBean implements Serializable {
         lista = usuariodao.listarUsuarios();
         return lista;
     }
-    
+
     public String eliminar() {
         UsuarioDao usuariodao = new UsuarioDao();
         boolean respuesta = usuariodao.eliminarUsuario(usuario);
@@ -160,6 +172,14 @@ public class UsuarioBean implements Serializable {
 
     public void setBanderaSelected(boolean banderaSelected) {
         this.banderaSelected = banderaSelected;
+    }
+
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
     }
 
 }

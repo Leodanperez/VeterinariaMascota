@@ -1,4 +1,3 @@
-
 package dao;
 
 import entidades.Usuario;
@@ -13,7 +12,7 @@ import utilitarios.HibernateUtil;
  *
  * @author LEO
  */
-public class UsuarioDao implements IUsuario{
+public class UsuarioDao implements IUsuario {
 
     @Override
     public boolean guardarUsuario(Usuario usuario) {
@@ -96,5 +95,4 @@ public class UsuarioDao implements IUsuario{
 
         return resp;
     }
-    
 }
