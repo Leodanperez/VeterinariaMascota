@@ -1,5 +1,5 @@
 package entidades;
-// Generated 18/07/2019 07:38:06 PM by Hibernate Tools 4.3.1
+// Generated 19/07/2019 12:56:32 AM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -18,8 +18,8 @@ public class Personal  implements java.io.Serializable {
      private String cargo;
      private String email;
      private String apellidos;
-     private Set usuarios = new HashSet(0);
      private Set atencions = new HashSet(0);
+     private Set usuarios = new HashSet(0);
 
     public Personal() {
     }
@@ -33,15 +33,15 @@ public class Personal  implements java.io.Serializable {
         this.email = email;
         this.apellidos = apellidos;
     }
-    public Personal(String nombre, String dni, String telefono, String cargo, String email, String apellidos, Set usuarios, Set atencions) {
+    public Personal(String nombre, String dni, String telefono, String cargo, String email, String apellidos, Set atencions, Set usuarios) {
        this.nombre = nombre;
        this.dni = dni;
        this.telefono = telefono;
        this.cargo = cargo;
        this.email = email;
        this.apellidos = apellidos;
-       this.usuarios = usuarios;
        this.atencions = atencions;
+       this.usuarios = usuarios;
     }
    
     public Integer getIdpersonal() {
@@ -93,19 +93,19 @@ public class Personal  implements java.io.Serializable {
     public void setApellidos(String apellidos) {
         this.apellidos = apellidos;
     }
-    public Set getUsuarios() {
-        return this.usuarios;
-    }
-    
-    public void setUsuarios(Set usuarios) {
-        this.usuarios = usuarios;
-    }
     public Set getAtencions() {
         return this.atencions;
     }
     
     public void setAtencions(Set atencions) {
         this.atencions = atencions;
+    }
+    public Set getUsuarios() {
+        return this.usuarios;
+    }
+    
+    public void setUsuarios(Set usuarios) {
+        this.usuarios = usuarios;
     }
 
 

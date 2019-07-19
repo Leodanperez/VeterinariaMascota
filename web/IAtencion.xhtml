@@ -49,7 +49,7 @@
                             </p:selectOneMenu>
                         </h:panelGrid>
                         <p:commandButton value="Nuevo" action="#{atencionBean.limpiar()}" update=":data:datatable,:from"/>
-                        <p:commandButton rendered="#{!atencionBean.banderaSelected}" value="Guardar" action="#{atencionBean.guardarAtencion()}" update=":data:datatable,:from"/>                        
+                        <p:commandButton rendered="#{!atencionBean.banderaSelected}" value="Guardar" action="#{atencionBean.saveAtencion()}" update=":data:datatable,:from"/>                        
                         <p:commandButton rendered="#{atencionBean.banderaSelected}" value="Actualizar" action="#{atencionBean.actualizarAtencion()}" update=":data:datatable,:from"/>
                     </p:panel>
                 </h:form>

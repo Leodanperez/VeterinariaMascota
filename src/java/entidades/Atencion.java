@@ -1,5 +1,5 @@
 package entidades;
-// Generated 18/07/2019 07:38:06 PM by Hibernate Tools 4.3.1
+// Generated 19/07/2019 12:56:32 AM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -11,7 +11,8 @@ public class Atencion  implements java.io.Serializable {
 
 
      private Integer idAtencion;
-     private ClienteHasMascota clienteHasMascota;
+     private Cliente cliente;
+     private Mascota mascota;
      private Personal personal;
      private Tipoatencion tipoatencion;
      private Date fechaAtencion;
@@ -22,13 +23,17 @@ public class Atencion  implements java.io.Serializable {
     }
 
 	
-    public Atencion(Date fechaAtencion, String diagnostico, Date horaAtencion) {
+    public Atencion(Cliente cliente, Mascota mascota, Personal personal, Tipoatencion tipoatencion, Date fechaAtencion, String diagnostico) {
+        this.cliente = cliente;
+        this.mascota = mascota;
+        this.personal = personal;
+        this.tipoatencion = tipoatencion;
         this.fechaAtencion = fechaAtencion;
         this.diagnostico = diagnostico;
-        this.horaAtencion = horaAtencion;
     }
-    public Atencion(ClienteHasMascota clienteHasMascota, Personal personal, Tipoatencion tipoatencion, Date fechaAtencion, String diagnostico, Date horaAtencion) {
-       this.clienteHasMascota = clienteHasMascota;
+    public Atencion(Cliente cliente, Mascota mascota, Personal personal, Tipoatencion tipoatencion, Date fechaAtencion, String diagnostico, Date horaAtencion) {
+       this.cliente = cliente;
+       this.mascota = mascota;
        this.personal = personal;
        this.tipoatencion = tipoatencion;
        this.fechaAtencion = fechaAtencion;
@@ -43,12 +48,19 @@ public class Atencion  implements java.io.Serializable {
     public void setIdAtencion(Integer idAtencion) {
         this.idAtencion = idAtencion;
     }
-    public ClienteHasMascota getClienteHasMascota() {
-        return this.clienteHasMascota;
+    public Cliente getCliente() {
+        return this.cliente;
     }
     
-    public void setClienteHasMascota(ClienteHasMascota clienteHasMascota) {
-        this.clienteHasMascota = clienteHasMascota;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+    public Mascota getMascota() {
+        return this.mascota;
+    }
+    
+    public void setMascota(Mascota mascota) {
+        this.mascota = mascota;
     }
     public Personal getPersonal() {
         return this.personal;

@@ -1,5 +1,5 @@
 package entidades;
-// Generated 18/07/2019 07:38:06 PM by Hibernate Tools 4.3.1
+// Generated 19/07/2019 12:56:32 AM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -20,6 +20,7 @@ public class Cliente  implements java.io.Serializable {
      private String telefono;
      private String email;
      private Set usuarios = new HashSet(0);
+     private Set atencions = new HashSet(0);
      private Set reservacitas = new HashSet(0);
      private Set clienteHasMascotas = new HashSet(0);
 
@@ -35,7 +36,7 @@ public class Cliente  implements java.io.Serializable {
         this.telefono = telefono;
         this.email = email;
     }
-    public Cliente(String nombre, String apellido, Date fechaNac, String direccion, String telefono, String email, Set usuarios, Set reservacitas, Set clienteHasMascotas) {
+    public Cliente(String nombre, String apellido, Date fechaNac, String direccion, String telefono, String email, Set usuarios, Set atencions, Set reservacitas, Set clienteHasMascotas) {
        this.nombre = nombre;
        this.apellido = apellido;
        this.fechaNac = fechaNac;
@@ -43,6 +44,7 @@ public class Cliente  implements java.io.Serializable {
        this.telefono = telefono;
        this.email = email;
        this.usuarios = usuarios;
+       this.atencions = atencions;
        this.reservacitas = reservacitas;
        this.clienteHasMascotas = clienteHasMascotas;
     }
@@ -102,6 +104,13 @@ public class Cliente  implements java.io.Serializable {
     
     public void setUsuarios(Set usuarios) {
         this.usuarios = usuarios;
+    }
+    public Set getAtencions() {
+        return this.atencions;
+    }
+    
+    public void setAtencions(Set atencions) {
+        this.atencions = atencions;
     }
     public Set getReservacitas() {
         return this.reservacitas;

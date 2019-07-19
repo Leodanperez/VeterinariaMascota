@@ -1,22 +1,24 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 18/07/2019 07:38:07 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated 19/07/2019 12:56:33 AM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="entidades.Atencion" table="atencion" catalog="mascota" optimistic-lock="version">
         <id name="idAtencion" type="java.lang.Integer">
             <column name="idAtencion" />
             <generator class="identity" />
         </id>
-        <many-to-one name="clienteHasMascota" class="entidades.ClienteHasMascota" fetch="select">
-            <column name="id_cliente" />
-            <column name="id_mascota" />
+        <many-to-one name="cliente" class="entidades.Cliente" fetch="select">
+            <column name="id_cliente" not-null="true" />
+        </many-to-one>
+        <many-to-one name="mascota" class="entidades.Mascota" fetch="select">
+            <column name="id_mascota" not-null="true" />
         </many-to-one>
         <many-to-one name="personal" class="entidades.Personal" fetch="select">
-            <column name="idpersonal" />
+            <column name="idpersonal" not-null="true" />
         </many-to-one>
         <many-to-one name="tipoatencion" class="entidades.Tipoatencion" fetch="select">
-            <column name="idTipoAtencion" />
+            <column name="idTipoAtencion" not-null="true" />
         </many-to-one>
         <property name="fechaAtencion" type="date">
             <column name="fechaAtencion" length="10" not-null="true" />
@@ -25,7 +27,7 @@
             <column name="diagnostico" length="65535" not-null="true" />
         </property>
         <property name="horaAtencion" type="time">
-            <column name="horaAtencion" length="8" not-null="true" />
+            <column name="horaAtencion" length="8" />
         </property>
     </class>
 </hibernate-mapping>

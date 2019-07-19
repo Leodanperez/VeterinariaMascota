@@ -42,9 +42,9 @@
                                 <f:selectItem itemLabel="Inactivo" itemValue="I"/>
                             </p:selectOneMenu>
                         </h:panelGrid>
-                        <p:commandButton value="Nuevo" action="#{mascotaBean.limpiar()}" update=":data:datatable,:from"/>
-                        <p:commandButton value="Guardar" action="#{mascotaPorClienteBean.guardarMascotaxCliente()}" update=":data:datatable,:from"/>                        
-                        <p:commandButton rendered="#{mascotaBean.banderaSelect}" value="Actualizar" action="#{mascotaBean.actualizarMascota()}" update=":data:datatable,:from"/>
+                        <p:commandButton value="Nuevo" action="#{mascotaPorClienteBean.limpiar()}" update=":data:datatable,:from"/>
+                        <p:commandButton rendered="#{!mascotaPorClienteBean.banderaSelected}" value="Guardar" action="#{mascotaPorClienteBean.guardarMascotaxCliente()}" update=":data:datatable,:from"/>                        
+                        <p:commandButton rendered="#{mascotaPorClienteBean.banderaSelected}" value="Actualizar" action="#{mascotaPorClienteBean.actualizarMascotaCliente()}" update=":data:datatable,:from"/>
                     </p:panel>
                 </h:form>
                 <p:panel>
