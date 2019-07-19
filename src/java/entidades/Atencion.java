@@ -1,5 +1,5 @@
 package entidades;
-// Generated 13/07/2019 10:24:01 PM by Hibernate Tools 4.3.1
+// Generated 18/07/2019 07:38:06 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -13,6 +13,7 @@ public class Atencion  implements java.io.Serializable {
      private Integer idAtencion;
      private ClienteHasMascota clienteHasMascota;
      private Personal personal;
+     private Tipoatencion tipoatencion;
      private Date fechaAtencion;
      private String diagnostico;
      private Date horaAtencion;
@@ -20,9 +21,16 @@ public class Atencion  implements java.io.Serializable {
     public Atencion() {
     }
 
-    public Atencion(ClienteHasMascota clienteHasMascota, Personal personal, Date fechaAtencion, String diagnostico, Date horaAtencion) {
+	
+    public Atencion(Date fechaAtencion, String diagnostico, Date horaAtencion) {
+        this.fechaAtencion = fechaAtencion;
+        this.diagnostico = diagnostico;
+        this.horaAtencion = horaAtencion;
+    }
+    public Atencion(ClienteHasMascota clienteHasMascota, Personal personal, Tipoatencion tipoatencion, Date fechaAtencion, String diagnostico, Date horaAtencion) {
        this.clienteHasMascota = clienteHasMascota;
        this.personal = personal;
+       this.tipoatencion = tipoatencion;
        this.fechaAtencion = fechaAtencion;
        this.diagnostico = diagnostico;
        this.horaAtencion = horaAtencion;
@@ -48,6 +56,13 @@ public class Atencion  implements java.io.Serializable {
     
     public void setPersonal(Personal personal) {
         this.personal = personal;
+    }
+    public Tipoatencion getTipoatencion() {
+        return this.tipoatencion;
+    }
+    
+    public void setTipoatencion(Tipoatencion tipoatencion) {
+        this.tipoatencion = tipoatencion;
     }
     public Date getFechaAtencion() {
         return this.fechaAtencion;

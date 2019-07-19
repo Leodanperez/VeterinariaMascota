@@ -1,5 +1,5 @@
 package entidades;
-// Generated 13/07/2019 10:24:01 PM by Hibernate Tools 4.3.1
+// Generated 18/07/2019 07:38:06 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -19,6 +19,8 @@ public class Cliente  implements java.io.Serializable {
      private String direccion;
      private String telefono;
      private String email;
+     private Set usuarios = new HashSet(0);
+     private Set reservacitas = new HashSet(0);
      private Set clienteHasMascotas = new HashSet(0);
 
     public Cliente() {
@@ -33,13 +35,15 @@ public class Cliente  implements java.io.Serializable {
         this.telefono = telefono;
         this.email = email;
     }
-    public Cliente(String nombre, String apellido, Date fechaNac, String direccion, String telefono, String email, Set clienteHasMascotas) {
+    public Cliente(String nombre, String apellido, Date fechaNac, String direccion, String telefono, String email, Set usuarios, Set reservacitas, Set clienteHasMascotas) {
        this.nombre = nombre;
        this.apellido = apellido;
        this.fechaNac = fechaNac;
        this.direccion = direccion;
        this.telefono = telefono;
        this.email = email;
+       this.usuarios = usuarios;
+       this.reservacitas = reservacitas;
        this.clienteHasMascotas = clienteHasMascotas;
     }
    
@@ -91,6 +95,20 @@ public class Cliente  implements java.io.Serializable {
     
     public void setEmail(String email) {
         this.email = email;
+    }
+    public Set getUsuarios() {
+        return this.usuarios;
+    }
+    
+    public void setUsuarios(Set usuarios) {
+        this.usuarios = usuarios;
+    }
+    public Set getReservacitas() {
+        return this.reservacitas;
+    }
+    
+    public void setReservacitas(Set reservacitas) {
+        this.reservacitas = reservacitas;
     }
     public Set getClienteHasMascotas() {
         return this.clienteHasMascotas;

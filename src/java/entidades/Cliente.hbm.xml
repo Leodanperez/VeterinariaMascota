@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 13/07/2019 10:24:02 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated 18/07/2019 07:38:07 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="entidades.Cliente" table="cliente" catalog="mascota" optimistic-lock="version">
         <id name="idCliente" type="java.lang.Integer">
@@ -26,6 +26,18 @@
         <property name="email" type="string">
             <column name="email" length="65535" not-null="true" />
         </property>
+        <set name="usuarios" table="usuario" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_cliente" />
+            </key>
+            <one-to-many class="entidades.Usuario" />
+        </set>
+        <set name="reservacitas" table="reservacita" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cliente_id_cliente" not-null="true" />
+            </key>
+            <one-to-many class="entidades.Reservacita" />
+        </set>
         <set name="clienteHasMascotas" table="cliente_has_mascota" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="cliente_id_cliente" not-null="true" />

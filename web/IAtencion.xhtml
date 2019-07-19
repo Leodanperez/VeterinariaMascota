@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./TemplateVeterinaria.xhtml">
+
+            <ui:define name="content">
+                <p:growl id="msj" autoUpdate="true"/>
+                <h:form id="from">
+                    <p:panel>
+                        <f:facet name="header">
+                            <column>
+                                <p:outputLabel value="MANTENIMIENTO ATENCION"/>  
+                            </column>
+                        </f:facet>
+                        <h:panelGrid columns="2">
+                            <p:outputLabel value="Codigo:"/>
+                            <p:inputText readonly="true" value="#{atencionBean.atencion.idAtencion=='0'?'':atencionBean.atencion.idAtencion}" required="true"/>
+                            <p:outputLabel value="Fecha Atencion"/>
+                            <p:calendar value="#{atencionBean.atencion.fechaAtencion}"/>
+                            <p:outputLabel value="Diagnostico"/>
+                            <p:inputText value="#{atencionBean.atencion.diagnostico}"/>
+                            <p:outputLabel value="Personal"/>
+                            <p:selectOneMenu value="#{atencionBean.idPersonal}">
+                                <f:selectItem itemLabel="-- Seleccione --"/>
+                                <f:selectItems value="#{atencionBean.listapersonal}" var="personal" itemLabel="#{personal.nombre}" itemValue="#{personal.idpersonal}"/>
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Cliente"/>
+                            <p:selectOneMenu value="#{atencionBean.idCliente}">
+                                <f:selectItem itemLabel="-- Seleccione --"/>
+                                <f:selectItems value="#{atencionBean.listaClientes}" var="cliente" itemLabel="#{cliente.nombre}" itemValue="#{cliente.idCliente}"/>
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Mascota"/>
+                            <p:selectOneMenu value="#{atencionBean.idMascota}">
+                                <f:selectItem itemLabel="-- Seleccione --"/>
+                                <f:selectItems value="#{atencionBean.listamascotas}" var="mascota" itemLabel="#{mascota.nameMascota}" itemValue="#{mascota.idMascota}"/>
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Tipo Atencion"/>
+                            <p:selectOneMenu value="#{atencionBean.idTipoAtencion}">
+                                <f:selectItem itemLabel="-- Seleccione --"/>
+                                <f:selectItems value="#{atencionBean.listatipoatencion}" var="usuario" itemLabel="#{usuario.descripcion}" itemValue="#{usuario.idTipoAtencion}"/>
+                            </p:selectOneMenu>
+                        </h:panelGrid>
+                        <p:commandButton value="Nuevo" action="#{atencionBean.limpiar()}" update=":data:datatable,:from"/>
+                        <p:commandButton rendered="#{!atencionBean.banderaSelected}" value="Guardar" action="#{atencionBean.guardarAtencion()}" update=":data:datatable,:from"/>                        
+                        <p:commandButton rendered="#{atencionBean.banderaSelected}" value="Actualizar" action="#{atencionBean.actualizarAtencion()}" update=":data:datatable,:from"/>
+                    </p:panel>
+                </h:form>
+                <p:panel>
+                    <h:form id="data">
+                        <p:dataTable rowKey="#{atencion.idAtencion}" selection="#{atencionBean.atencion}" selectionMode="single" 
+                                     id="datatable" var="atencion" value="#{atencionBean.listarAtencion()}">
+                            <p:ajax update=":from" event="rowSelect" listener="#{atencionBean.selectBandera()}"/>
+                            <p:column headerText="Codigo">
+                                <h:outputText value="#{atencion.idAtencion}"/>
+                            </p:column>
+                            <p:column headerText="Fecha">
+                                <h:outputText value="#{atencion.fechaAtencion}"/>
+                            </p:column>
+                            <p:column headerText="Diagnostico">
+                                <h:outputText value="#{atencion.diagnostico}"/>
+                            </p:column>
+                            <p:column headerText="Accion">
+                                <p:commandButton value="Eliminar" onclick="PF('dgEliminar').show();">
+                                    <f:setPropertyActionListener target="#{atencionBean.atencion}" value="#{atencion}" />
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </p:panel>
+                <p:dialog id="dig" header="Eliminar registro" widgetVar="dgEliminar" showEffect="explode" hideEffect="explode" modal="true">
+                    <h:form id="fromEliminar" style="text-align:center;">
+                        <p:commandButton value="Si" action="#{atencionBean.eliminar()}" update=":data:datatable" oncomplete="PF('dgEliminar').hide();"/>
+                        <p:commandButton value="No" onclick="PF('dgEliminar').hide();" />
+                    </h:form>
+                </p:dialog>
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>
+

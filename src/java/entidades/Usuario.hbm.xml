@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 18/07/2019 07:38:07 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entidades.Usuario" table="usuario" catalog="mascota" optimistic-lock="version">
+        <id name="idUsuario" type="java.lang.Integer">
+            <column name="idUsuario" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="cliente" class="entidades.Cliente" fetch="select">
+            <column name="id_cliente" />
+        </many-to-one>
+        <many-to-one name="personal" class="entidades.Personal" fetch="select">
+            <column name="idpersonal" />
+        </many-to-one>
+        <property name="nombreUsuario" type="string">
+            <column name="nombreUsuario" length="45" />
+        </property>
+        <property name="password" type="string">
+            <column name="password" length="45" />
+        </property>
+        <set name="reservacitas" table="reservacita" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idUsuario" not-null="true" />
+            </key>
+            <one-to-many class="entidades.Reservacita" />
+        </set>
+    </class>
+</hibernate-mapping>

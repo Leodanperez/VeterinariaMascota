@@ -7,10 +7,13 @@
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/mascota</property>
     <property name="hibernate.connection.username">root</property>
     <mapping resource="entidades/Cliente.hbm.xml"/>
+    <mapping resource="entidades/Tiporeserva.hbm.xml"/>
     <mapping resource="entidades/Mascota.hbm.xml"/>
-    <mapping resource="entidades/Sexo.hbm.xml"/>
+    <mapping resource="entidades/Reservacita.hbm.xml"/>
+    <mapping resource="entidades/Tipoatencion.hbm.xml"/>
     <mapping resource="entidades/Atencion.hbm.xml"/>
     <mapping resource="entidades/ClienteHasMascota.hbm.xml"/>
     <mapping resource="entidades/Personal.hbm.xml"/>
+    <mapping resource="entidades/Usuario.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

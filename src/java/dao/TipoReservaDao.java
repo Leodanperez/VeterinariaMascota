@@ -1,7 +1,8 @@
+
 package dao;
 
-import entidades.Sexo;
-import interfaces.ISexo;
+import entidades.Tiporeserva;
+import interfaces.ITipoReserva;
 import java.util.ArrayList;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -13,16 +14,18 @@ import utilitarios.HibernateUtil;
  *
  * @author LEO
  */
-public class SexoDao implements ISexo {
+public class TipoReservaDao implements ITipoReserva{
 
     @Override
-    public boolean guardarSexo(Sexo sexo) {
+    public boolean guardarTiporeserva(Tiporeserva tiporeserva) {
         Session session = null;
         boolean respuesta = true;
         try {
+            //construir una nueva session y transaccion
             session = HibernateUtil.getSessionFactory().openSession();
             Transaction transaccion = session.beginTransaction(); //inicia
-            session.save(sexo);
+            //registra en la base de datos
+            session.save(tiporeserva);
             transaccion.commit();
         } catch (Exception e) {
             System.out.println("Error al guardar. " + e);
@@ -32,18 +35,21 @@ public class SexoDao implements ISexo {
                 session.close();
             }
         }
+        //session.close();
         return respuesta;
     }
 
     @Override
-    public ArrayList<Sexo> listarSexo() {
+    public ArrayList<Tiporeserva> listarTiporeserva() {
         Session session = null;
-        ArrayList<Sexo> lista = new ArrayList<>();
+        ArrayList<Tiporeserva> lista = new ArrayList<>();
         try {
             session = HibernateUtil.getSessionFactory().openSession();
-            String hql = "FROM Sexo";
+            //consulta hacia la base de datos
+            String hql = "FROM Tiporeserva";
             Query query = session.createQuery(hql);
-            lista = (ArrayList<Sexo>) query.list();
+            //ejecuta la consulta y obtener la lista. array: castea
+            lista = (ArrayList<Tiporeserva>) query.list();
         } catch (Exception e) {
             System.out.println("ERROR EN LISTAR::" + e);
         } finally {
@@ -56,15 +62,16 @@ public class SexoDao implements ISexo {
     }
 
     @Override
-    public boolean actualizarSexo(Sexo sexo) {
+    public boolean actualizarTiporeserva(Tiporeserva tiporeserva) {
+        System.out.println("erer" + tiporeserva.getDescripcion());
         boolean resp = true;
         Session session = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             Transaction transaccion = session.beginTransaction();
-            session.update(sexo);
+            session.update(tiporeserva);
             transaccion.commit();
-        } catch (Exception e) {
+        } catch (HibernateException e) {
             resp = false;
             System.out.println("ERROR EN ACTU::" + e);
         } finally {
@@ -76,15 +83,15 @@ public class SexoDao implements ISexo {
     }
 
     @Override
-    public boolean eliminarSexo(Sexo sexo) {
+    public boolean eliminarTiporeserva(Tiporeserva tiporeserva) {
         Session sesion = null;
         boolean resp = true;
         try {
             sesion = HibernateUtil.getSessionFactory().openSession();
             sesion.beginTransaction();
-            sesion.delete(sexo);
+            sesion.delete(tiporeserva);
             sesion.getTransaction().commit();
-        } catch (HibernateException e) {
+        } catch (Exception e) {
             System.out.println("ERROR DAO::" + e);
             resp = false;
             sesion.getTransaction().rollback();
@@ -96,5 +103,5 @@ public class SexoDao implements ISexo {
 
         return resp;
     }
-
+    
 }
